@@ -14,6 +14,9 @@ class SiteController extends Controller
     /**
      * @inheritdoc
      */
+    public $layout="@app/views/layouts/bloglayout.php";
+
+
     public function behaviors()
     {
         return [
