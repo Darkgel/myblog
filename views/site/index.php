@@ -1,8 +1,4 @@
 <?php
-use yii\helpers\Html;
-
-/* @var $this yii\web\View */
-
 $this->title = 'Darkgel\'s blog';
 ?>
 <div id="articles">
@@ -108,5 +104,15 @@ $this->title = 'Darkgel\'s blog';
 
 </div>
 
-
+<div id="pagination">
+    <ul class="pagination">
+        <li><a href="#">&laquo;第一页</a></li>
+        <li><a href="#">上一页</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li><a href="#">下一页</a></li>
+        <li><a href="#">&raquo;最后一页</a></li>
+    </ul>
+</div>
 

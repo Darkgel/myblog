@@ -47,12 +47,18 @@
 /***************right top begin********************/
 #right-top{
     background-color: #2D2D2D;
-    margin-bottom:10px;
-    height:90px;
+    margin-bottom:30px;
+    height:150px;
 }
 
 #right-top img{
     margin:10px 0 10px 0;
+}
+#right-top #other-world{
+    font-size:25px;
+    background-color:black;
+    text-align:center;
+    color:#3176B1;
 }
 /***************right top end********************/
 

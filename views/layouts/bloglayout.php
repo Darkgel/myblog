@@ -48,23 +48,21 @@ BloglayoutAsset::register($this);
         </div>
     </div>
     <div class="col-md-10 col-md-offset-2" id="right-top">
-        <?=Html::img("@web/img/top.png");?>
+        <div class="row" id="other-world">
+            <div class="col-md-4"><a href="#">·电影·</a></div>
+            <div class="col-md-4"><a href="#">·书·</a></div>
+            <div class="col-md-4"><a href="#">·音乐·</a></div>
+        </div>
+        <div class="row">
+            <?=Html::img("@web/img/top.png");?>
+        </div>
+
     </div>
     <div class="col-md-10 col-md-offset-2" id="right">
         <div class="row">
             <div class="col-md-10 " id="right-content">
                 <?= $content ?>
-                <div id="pagination">
-                    <ul class="pagination">
-                        <li><a href="#">&laquo;第一页</a></li>
-                        <li><a href="#">上一页</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">下一页</a></li>
-                        <li><a href="#">&raquo;最后一页</a></li>
-                    </ul>
-                </div>
+
             </div>
             <div class="col-md-2 " id="right-sidebar">
                 <div id="statistics">
@@ -86,7 +84,7 @@ BloglayoutAsset::register($this);
                         <li class="list-group-item"><a href="#">更多</a></li>
                     </ul>
                 </div>
-                <div id="comments">
+                <div id="recent-comments">
                     <ul class="list-group">
                         <li class="list-group-item"><h3>最新评论</h3></li>
                         <li class="list-group-item"><a href="#">百度bootstrap中使用日历控件</a></li>
