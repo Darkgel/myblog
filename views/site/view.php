@@ -94,6 +94,11 @@ PostviewAsset::register($this);
 
 
     <div id="article-footer">
+        <div id="vote">
+            <a href="#" id="approve">赞成(3)</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="#" id="against">反对(1)</a>
+        </div>
         <div>
             <p id="article-class">
                 &nbsp;&nbsp;分类 : PHP,Yii

@@ -154,7 +154,11 @@ BloglayoutAsset::register($this);
         <div class="row">
             <div class="col-md-12" id="right-footer">
                 <?=Html::img("img/DARKGEL.png");?>
+                <div>
+                    Copyright © Darkgel
+                </div>
             </div>
+
         </div>
 
     </div>

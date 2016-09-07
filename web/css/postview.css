@@ -23,6 +23,10 @@
     clear:both;
 }
 
+#article #article-footer #vote{
+    text-align:center;
+}
+
 #article #article-footer #article-class{
     float:left;
 }
