@@ -24,15 +24,16 @@
 }
 
 #article #article-footer #vote{
+    float:right;
     text-align:center;
 }
 
 #article #article-footer #article-class{
-    float:left;
+    float:right;
 }
 
 #article #article-footer #article-tags{
-    float:right;
+    float:left;
 }
 
 #article #article-footer #forward{

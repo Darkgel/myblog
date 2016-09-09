@@ -13,7 +13,7 @@ class PostviewAsset extends AssetBundle
         'css/postview.css',
     ];
     public $js = [
-
+        'js/postview.js',
     ];
 
 

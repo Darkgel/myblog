@@ -40,7 +40,7 @@ BloglayoutAsset::register($this);
         </div>
         <div id="navigation">
             <ul class="nav navtabs">
-                <li><a href="#">首页</a></li>
+                <li><a href="http://www.myblog.com/index.php">首页</a></li>
                 <li><a href="#">管理</a></li>
                 <li><a href="#">联系我</a></li>
                 <li><a href="#">写文章</a></li>
@@ -168,7 +168,7 @@ BloglayoutAsset::register($this);
 
 
 <!--置顶按钮-->
-<a href="#" onclick="scroll_to_top()" id="scroll_to_top" class="btn btn-lg"><span class="glyphicon glyphicon-chevron-up"></span><br />回到<br />顶部</a>
+<a href="javascript:scroll_to_top()" id="scroll_to_top" class="btn btn-lg"><span class="glyphicon glyphicon-chevron-up"></span><br />回到<br />顶部</a>
 <?php $this->endBody() ?>
 </body>
 </html>
