@@ -2,8 +2,6 @@
 use yii\helpers\Html;
 use app\assets\AppAsset;
 use app\assets\PostviewAsset;
-use yii\bootstrap\Modal;
-use yii\helpers\Url;
 
 
 $this->title = $post->post_title;
@@ -105,7 +103,12 @@ PostviewAsset::register($this);
                     <span><?=Html::encode($comment_chain[0]['comment_date'])?></span>
                 </h5>
                 <div><?=Html::encode($comment_chain[0]['comment_content'])?></div>
-                <div class="reply"><a href="#">回复</a></div>
+                <div class="reply">
+                    <a id="<?=Html::encode($comment_chain[0]['comment_id'].'-'.$post->post_id.'-'.$comment_chain[0]['comment_after'].'-'.$comment_chain[0]['comment_author_name']);?>" href="#">回复</a>
+                    <ul id="reply-<?=Html::encode($comment_chain[0]['comment_id'])?>">
+
+                    </ul>
+                </div>
                 <br/>
                 <?php if(count($comment_chain)>1):?>
                     <ul class="media-list">
@@ -128,7 +131,10 @@ PostviewAsset::register($this);
                                 </h5>
                                 <div><?=Html::encode($comment_chain[$i]['comment_content'])?></div>
                                 <div class="reply">
-                                    <?=Html::a('回复', '#', [ 'id' => 'create', 'data-toggle' => 'modal', 'data-target' => '#create-modal',]);?>
+                                    <a id="<?=Html::encode($comment_chain[$i]['comment_id'].'-'.$post->post_id.'-'.$comment_chain[$i]['comment_after'].'-'.$comment_chain[$i]['comment_author_name']);?>" href="#">回复</a>
+                                    <ul id="reply-<?=Html::encode($comment_chain[$i]['comment_id'])?>">
+
+                                    </ul>
                                 </div>
                             </div>
                         </li>
@@ -144,7 +150,7 @@ PostviewAsset::register($this);
 
 <div id="new-comments">
     <h3>&nbsp;发表评论</h3>
-    <form role="form" action="http://www.myblog.com/index.php?r=comment/create&post_id=<?=$post->post_id;?>" method="post">
+    <form role="form" action="http://www.myblog.com/index.php?r=comment/reply" method="post">
         <input type="hidden" name="_csrf" value="<?=Yii::$app->request->getCsrfToken()?>" />
         <div class="form-group">
             <label for="comment-content">您的评论</label>
@@ -161,6 +167,35 @@ PostviewAsset::register($this);
         <button type="submit" class="btn btn-success">提交评论</button>
     </form>
 </div>
+
+
+
+
+
+<div  style="display:none;">
+<ul id="reply-ul">
+    <li id="reply-form">
+        <form role="form" action="http://www.myblog.com/index.php?r=comment/create&post_id=<?=$post->post_id;?>" method="post">
+            <input type="hidden" name="_csrf" value="<?=Yii::$app->request->getCsrfToken()?>" />
+            <div class="form-group">
+                <label for="comment-content">您的回复</label>
+                <textarea name="comment_content" class="form-control" rows="8" id="comment-content" placeholder="请在这里写下您的回复"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="comment-author">您的称呼</label>
+                <input name="comment_author_name" type="text" class="form-control" id="comment-author" placeholder="如何称呼您" >
+            </div>
+            <div class="form-group">
+                <label for="email">邮箱(选填)&nbsp;&nbsp;&nbsp;备注:您的邮箱将不会被公开,若您留下邮箱,当有人回复您的评论时可以将回复发送到您的邮箱</label>
+                <input name="comment_author_email" type="email" class="form-control" id="email" placeholder="请输入您的邮箱地址">
+            </div>
+            <button type="button" class="btn btn-info" onclick="cancel_reply()">取消</button>
+            <button type="submit" class="btn btn-success">提交</button>
+        </form>
+    </li>
+</ul>
+</div>
+
 
 
 

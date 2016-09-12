@@ -45,6 +45,24 @@ class CommentController extends Controller{
 
     }
 
+    public function actionReply(){
+        $post_id = $_GET['post_id'];
+        $comment = new Comment();
+        $this->loadDataFromPost($comment,$post_id);
+        $comment->comment_after = $_GET['comment_after'];
+        $comment->comment_replyto_id = $_GET['comment_replyto_id'];
+        $comment->comment_replyto_author = $_GET['comment_replyto_author'];
+
+//        echo "<pre>";
+//        var_dump($comment);
+//        echo "</pre>";
+//        exit;
+
+        if($comment->save()){
+            return $this->redirect(['post/view', 'id' => $post_id]);
+        }
+    }
+
     protected function findModel($id)
     {
         if (($model = Comment::findOne($id)) !== null) {

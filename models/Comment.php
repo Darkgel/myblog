@@ -47,7 +47,6 @@ class Comment extends \yii\db\ActiveRecord
             [['comment_date'], 'safe'],
             [['comment_author_name', 'comment_replyto_author'], 'string', 'max' => 128],
             [['comment_author_email'], 'string', 'max' => 100],
-            [['comment_author_name'], 'unique'],
             [['comment_after'], 'exist', 'skipOnError' => true, 'targetClass' => Comment::className(), 'targetAttribute' => ['comment_after' => 'comment_id']],
             [['comment_replyto_id'], 'exist', 'skipOnError' => true, 'targetClass' => Comment::className(), 'targetAttribute' => ['comment_replyto_id' => 'comment_id']],
             [['comment_replyto_author'], 'exist', 'skipOnError' => true, 'targetClass' => Comment::className(), 'targetAttribute' => ['comment_replyto_author' => 'comment_author_name']],

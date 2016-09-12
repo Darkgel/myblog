@@ -87,3 +87,23 @@ function toast(message, duration) {
         })
     }, duration);
 }
+
+// function replyform(){
+//     this.id
+//     $(".new-reply").toggle();
+// }
+$(".reply a").click(function(){
+    var mes = this.id;
+    var arr = mes.split('-');
+    var reply_form = $("#reply-form").remove();
+    var href = "http://www.myblog.com/index.php?r=comment/reply&post_id="+arr[1]+"&comment_after="+arr[2]+"&comment_replyto_id="+arr[0]+"&comment_replyto_author="+arr[3];
+    reply_form.find("form").attr("action",href);
+    $(this).next().append(reply_form);
+    return false;
+});
+
+function cancel_reply(){
+    var reply_form = $("#reply-form").remove();
+    $("#reply-ul").append(reply_form);
+    return false;
+}
