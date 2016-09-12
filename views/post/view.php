@@ -150,7 +150,7 @@ PostviewAsset::register($this);
 
 <div id="new-comments">
     <h3>&nbsp;发表评论</h3>
-    <form role="form" action="http://www.myblog.com/index.php?r=comment/reply" method="post">
+    <form role="form" action="http://www.myblog.com/index.php?r=comment/create&post_id=<?=$post->post_id;?>" method="post">
         <input type="hidden" name="_csrf" value="<?=Yii::$app->request->getCsrfToken()?>" />
         <div class="form-group">
             <label for="comment-content">您的评论</label>
