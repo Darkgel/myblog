@@ -32,8 +32,8 @@ class Reltag2post extends \yii\db\ActiveRecord
         return [
             [['post_id', 'tag_id'], 'required'],
             [['post_id', 'tag_id'], 'integer'],
-            [['post_id'], 'exist', 'skipOnError' => true, 'targetClass' => BlogPost::className(), 'targetAttribute' => ['post_id' => 'post_id']],
-            [['tag_id'], 'exist', 'skipOnError' => true, 'targetClass' => BlogTag::className(), 'targetAttribute' => ['tag_id' => 'tag_id']],
+            [['post_id'], 'exist', 'skipOnError' => true, 'targetClass' => Post::className(), 'targetAttribute' => ['post_id' => 'post_id']],
+            [['tag_id'], 'exist', 'skipOnError' => true, 'targetClass' => Tag::className(), 'targetAttribute' => ['tag_id' => 'tag_id']],
         ];
     }
 
@@ -54,7 +54,7 @@ class Reltag2post extends \yii\db\ActiveRecord
      */
     public function getPost()
     {
-        return $this->hasOne(BlogPost::className(), ['post_id' => 'post_id']);
+        return $this->hasOne(Post::className(), ['post_id' => 'post_id']);
     }
 
     /**
@@ -62,6 +62,6 @@ class Reltag2post extends \yii\db\ActiveRecord
      */
     public function getTag()
     {
-        return $this->hasOne(BlogTag::className(), ['tag_id' => 'tag_id']);
+        return $this->hasOne(Tag::className(), ['tag_id' => 'tag_id']);
     }
 }

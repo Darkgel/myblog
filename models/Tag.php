@@ -32,7 +32,6 @@ class Tag extends \yii\db\ActiveRecord
         return [
             [['tag_name'], 'required'],
             [['tag_description'], 'string'],
-            [['post_count'], 'integer'],
             [['tag_name'], 'string', 'max' => 255],
         ];
     }
@@ -55,6 +54,6 @@ class Tag extends \yii\db\ActiveRecord
      */
     public function getBlogPostTags()
     {
-        return $this->hasMany(BlogPostTag::className(), ['tag_id' => 'tag_id']);
+        return $this->hasMany(Reltag2post::className(), ['tag_id' => 'tag_id']);
     }
 }

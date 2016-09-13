@@ -32,8 +32,8 @@ class Relclass2post extends \yii\db\ActiveRecord
         return [
             [['post_id', 'class_id'], 'required'],
             [['post_id', 'class_id'], 'integer'],
-            [['class_id'], 'exist', 'skipOnError' => true, 'targetClass' => BlogClass::className(), 'targetAttribute' => ['class_id' => 'class_id']],
-            [['post_id'], 'exist', 'skipOnError' => true, 'targetClass' => BlogPost::className(), 'targetAttribute' => ['post_id' => 'post_id']],
+            [['class_id'], 'exist', 'skipOnError' => true, 'targetClass' => Classification::className(), 'targetAttribute' => ['class_id' => 'class_id']],
+            [['post_id'], 'exist', 'skipOnError' => true, 'targetClass' => Post::className(), 'targetAttribute' => ['post_id' => 'post_id']],
         ];
     }
 
@@ -54,7 +54,7 @@ class Relclass2post extends \yii\db\ActiveRecord
      */
     public function getClass()
     {
-        return $this->hasOne(BlogClass::className(), ['class_id' => 'class_id']);
+        return $this->hasOne(Classification::className(), ['class_id' => 'class_id']);
     }
 
     /**
@@ -62,6 +62,6 @@ class Relclass2post extends \yii\db\ActiveRecord
      */
     public function getPost()
     {
-        return $this->hasOne(BlogPost::className(), ['post_id' => 'post_id']);
+        return $this->hasOne(Post::className(), ['post_id' => 'post_id']);
     }
 }

@@ -32,7 +32,6 @@ class Classification extends \yii\db\ActiveRecord
         return [
             [['class_name'], 'required'],
             [['class_description'], 'string'],
-            [['post_count'], 'integer'],
             [['class_name'], 'string', 'max' => 255],
         ];
     }
@@ -55,6 +54,6 @@ class Classification extends \yii\db\ActiveRecord
      */
     public function getBlogClassPosts()
     {
-        return $this->hasMany(BlogClassPost::className(), ['class_id' => 'class_id']);
+        return $this->hasMany(Relclass2post::className(), ['class_id' => 'class_id']);
     }
 }
