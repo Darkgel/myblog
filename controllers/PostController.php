@@ -208,8 +208,13 @@ class PostController extends Controller
 
     }
 
-    public function actionDelete(){
-
+    public function actionDelete($id){
+        $post = Post::findOne(['post_id'=>$id]);
+        if($post->delete()){
+            return 1;
+        }else{
+            return 0;
+        }
     }
 
     public function actionVote(){
@@ -243,9 +248,7 @@ class PostController extends Controller
         }
     }
 
-    public function actionTest(){
-        echo "suc";
-    }
+
 }
 
 

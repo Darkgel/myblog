@@ -44,6 +44,7 @@ BloglayoutAsset::register($this);
                 <li><a href="#">管理</a></li>
                 <li><a href="#">联系我</a></li>
                 <li><a href="http://www.myblog.com/index.php?r=post/create">写文章</a></li>
+                <li><a href="http://www.myblog.com/index.php?r=post/draft">我的草稿</a></li>
             </ul>
         </div>
     </div>

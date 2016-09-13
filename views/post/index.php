@@ -26,10 +26,7 @@ $this->title = 'Darkgel\'s blog';
                         '<span class="glyphicon glyphicon-pencil"></span>',
                         ['post/update','id'=>$post->post_id]
                     );?>&nbsp;
-                    <?=Html::a(
-                        '<span class="glyphicon glyphicon-trash"></span>',
-                        ['post/delete','id'=>$post->post_id]
-                    );?>
+                    <a href="javascript:deletePost(<?=$post->post_id;?>)"><span class="glyphicon glyphicon-trash"></span></a>
                 </span>
             </div>
         </div>
