@@ -6,6 +6,8 @@
 use yii\helpers\Html;
 use app\assets\AppAsset;
 use app\assets\BloglayoutAsset;
+use app\widgets\leftSidebarWidget;
+
 
 AppAsset::register($this);
 BloglayoutAsset::register($this);
@@ -66,90 +68,7 @@ BloglayoutAsset::register($this);
 
             </div>
             <div class="col-md-2 " id="right-sidebar">
-                <div id="statistics">
-                    <ul class="list-group">
-                        <li class="list-group-item">
-                            <span class="badge">33</span>文章数
-                        </li>
-                        <li class="list-group-item">
-                            <span class="badge">23</span>评论数
-                        </li>
-                    </ul>
-                </div>
-                <div id="recent_articles">
-                    <ul class="list-group">
-                        <li class="list-group-item"><h3>最新文章</h3></li>
-                        <li class="list-group-item"><a href="#">百度bootstrap中使用日历控件</a></li>
-                        <li class="list-group-item"><a href="#">goobootstrap中使用日历控件gle</a></li>
-                        <li class="list-group-item"><a href="#">QQ</a></li>
-                        <li class="list-group-item"><a href="#">更多</a></li>
-                    </ul>
-                </div>
-                <div id="recent-comments">
-                    <ul class="list-group">
-                        <li class="list-group-item"><h3>最新评论</h3></li>
-                        <li class="list-group-item"><a href="#">百度bootstrap中使用日历控件</a></li>
-                        <li class="list-group-item"><a href="#">goobootstrap中使用日历控件gle</a></li>
-                        <li class="list-group-item"><a href="#">QQ</a></li>
-                        <li class="list-group-item"><a href="#">更多</a></li>
-                    </ul>
-                </div>
-                <div id="tags">
-                    <ul class="list-group">
-                        <li class="list-group-item">
-                            <h3>标签</h3>
-                        </li>
-                        <li class="list-group-item">
-                            <span class="badge">23</span><a href="#">mysql</a>
-                        </li>
-                        <li class="list-group-item">
-                            <span class="badge">3</span><a href="#">php</a>
-                        </li>
-                        <li class="list-group-item">
-                            <span class="badge">21</span><a href="#">linux</a>
-                        </li>
-                    </ul>
-                </div>
-                <div id="classification">
-                    <ul class="list-group">
-                        <li class="list-group-item"><h3>分类</h3></li>
-                        <li class="list-group-item">
-                            <span class="badge">2</span><a href="#">css</a>
-                        </li>
-                        <li class="list-group-item">
-                            <span class="badge">2</span><a href="#">js</a>
-                        </li>
-                        <li class="list-group-item">
-                            <span class="badge">2</span><a href="#">asp</a>
-                        </li>
-                    </ul>
-                </div>
-                <div id="archives">
-                    <ul class="list-group">
-                        <li class="list-group-item"><h3>归档</h3></li>
-                        <li class="list-group-item">
-                            <span class="badge">2</span><a href="#">2016年9月</a>
-                        </li>
-                        <li class="list-group-item">
-                            <span class="badge">2</span><a href="#">2016年8月</a>
-                        </li>
-                        <li class="list-group-item">
-                            <span class="badge">2</span><a href="#">2016年7月</a>
-                        </li>
-                        <li class="list-group-item">
-                            <a href="#">更多</a>
-                        </li>
-                    </ul>
-                </div>
-                <div id="links">
-                    <ul class="list-group">
-                        <li class="list-group-item"><h3>链接</h3></li>
-                        <li class="list-group-item"><a href="http://www.baidu.com">百度</a></li>
-                        <li class="list-group-item"><a href="http://www.google.com">google</a></li>
-                        <li class="list-group-item"><a href="http://www.qq.com">QQ</a></li>
-                        <li class="list-group-item"><a href="#">更多</a></li>
-                    </ul>
-                </div>
+                <?=leftSidebarWidget::widget();?>
             </div>
         </div>
         <div class="row">

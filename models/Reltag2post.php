@@ -16,6 +16,7 @@ use Yii;
  */
 class Reltag2post extends \yii\db\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -63,5 +64,37 @@ class Reltag2post extends \yii\db\ActiveRecord
     public function getTag()
     {
         return $this->hasOne(Tag::className(), ['tag_id' => 'tag_id']);
+    }
+
+    public static function getTagAndCount($limit){
+        if($limit!==0){
+            //widget中使用
+            $tag_arr = Reltag2post::find()
+                ->select(['count(*) as count','blog_post_tag.tag_id','blog_tag.tag_name'])
+                ->leftJoin('blog_tag','blog_post_tag.tag_id=blog_tag.tag_id')
+                ->leftJoin('blog_post','blog_post_tag.post_id=blog_post.post_id')
+                ->where(['blog_post.post_status'=>1])
+                ->groupBy(['blog_post_tag.tag_id'])
+                ->orderBy(['count'=>SORT_DESC])
+                ->limit($limit)
+                ->asArray()
+                ->all();
+
+            return $tag_arr;
+        }else{
+            //PostController中使用
+            $tag_arr = Reltag2post::find()
+                ->select(['count(*) as count','blog_post_tag.tag_id','blog_tag.tag_name'])
+                ->leftJoin('blog_tag','blog_post_tag.tag_id=blog_tag.tag_id')
+                ->leftJoin('blog_post','blog_post_tag.post_id=blog_post.post_id')
+                ->where(['blog_post.post_status'=>1])
+                ->groupBy(['blog_post_tag.tag_id'])
+                ->orderBy(['count'=>SORT_DESC])
+                ->asArray()
+                ->all();
+
+            return $tag_arr;
+        }
+
     }
 }

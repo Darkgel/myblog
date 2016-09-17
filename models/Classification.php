@@ -56,4 +56,6 @@ class Classification extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Relclass2post::className(), ['class_id' => 'class_id']);
     }
+
+
 }

@@ -83,7 +83,7 @@ class Post extends \yii\db\ActiveRecord
      */
     public function getComments()
     {
-        return $this->hasMany(BlogComment::className(), ['comment_post_id' => 'post_id']);
+        return $this->hasMany(Comment::className(), ['comment_post_id' => 'post_id']);
     }
 
     /**
@@ -96,5 +96,20 @@ class Post extends \yii\db\ActiveRecord
         $command = $connection->createCommand($sql,[':id'=>$this->post_id]);
         $tags = $command->queryAll();
         return $tags;
+    }
+
+    public static function getPostCount(){
+        return Post::find()
+            ->where(['post_status'=>1])
+            ->count();
+    }
+
+    public static function getRecentPosts(){
+        return Post::find()
+            ->select(['post_id','post_title'])
+            ->where(['post_status'=>1,])
+            ->orderBy(['post_modify_date'=>SORT_DESC])
+            ->limit(5)
+            ->all();
     }
 }

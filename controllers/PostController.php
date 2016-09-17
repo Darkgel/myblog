@@ -248,7 +248,72 @@ class PostController extends Controller
         }
     }
 
+    public function actionIndexWithTags($tag_id){
+        if($tag_id==0){
+            $tag_arr = Reltag2post::getTagAndCount(0);
 
+            return $this->render('allTagsAndCount',['tag_arr'=>$tag_arr]);
+
+        }else{
+            $tag = Tag::find()->where(['tag_id'=>$tag_id])->one();
+            $query = Reltag2post::find();
+
+            $pagination = new Pagination([
+                'defaultPageSize' => 8,
+                'totalCount' => $query->count(),
+            ]);
+
+            $posts = $query->select(['blog_post.post_id','blog_post.post_title','blog_post.post_summary','blog_post.post_modify_date','blog_post.post_read_count','blog_post.post_comment_count'])
+                ->leftJoin('blog_post','blog_post_tag.post_id=blog_post.post_id')
+                //->leftJoin('blog_tag','blog_post_tag.tag_id=blog_tag.tag_id')
+                ->where(['blog_post_tag.tag_id'=>$tag_id,'blog_post.post_status'=>1])
+                ->orderBy(['blog_post.post_modify_date'=>SORT_DESC])
+                ->offset($pagination->offset)
+                ->limit($pagination->limit)
+                ->asArray()
+                ->all();
+
+            return $this->render('indexWithTags',[
+                'tag' => $tag,
+                'posts'=>$posts,
+                'pagination'=>$pagination,
+            ]);
+
+        }
+    }
+
+    public function actionIndexWithClass($class_id){
+        if($class_id==0){
+            $class_arr = Relclass2post::getClassAndCount(0);
+
+            return $this->render('allClassAndCount',['class_arr'=>$class_arr]);
+
+        }else{
+            $classification = Classification::find()->where(['class_id'=>$class_id])->one();
+            $query = Relclass2post::find();
+
+            $pagination = new Pagination([
+                'defaultPageSize' => 8,
+                'totalCount' => $query->count(),
+            ]);
+
+            $posts = $query->select(['blog_post.post_id','blog_post.post_title','blog_post.post_summary','blog_post.post_modify_date','blog_post.post_read_count','blog_post.post_comment_count'])
+                ->leftJoin('blog_post','blog_class_post.post_id=blog_post.post_id')
+                ->where(['blog_class_post.class_id'=>$class_id,'blog_post.post_status'=>1])
+                ->orderBy(['blog_post.post_modify_date'=>SORT_DESC])
+                ->offset($pagination->offset)
+                ->limit($pagination->limit)
+                ->asArray()
+                ->all();
+
+
+            return $this->render('indexWithClass',[
+                'classification'=>$classification,
+                'posts'=>$posts,
+                'pagination'=>$pagination,
+            ]);
+        }
+    }
 }
 
 

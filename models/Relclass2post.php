@@ -16,6 +16,7 @@ use Yii;
  */
 class Relclass2post extends \yii\db\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -63,5 +64,40 @@ class Relclass2post extends \yii\db\ActiveRecord
     public function getPost()
     {
         return $this->hasOne(Post::className(), ['post_id' => 'post_id']);
+    }
+
+    public static function getClassAndCount($limit){
+        if($limit!==0){
+            //widget中使用
+            $class_arr = Relclass2post::find()
+                ->select(['count(*) as count','blog_class_post.class_id','blog_class.class_name'])
+                ->leftJoin('blog_class','blog_class_post.class_id=blog_class.class_id')
+                ->leftJoin('blog_post','blog_class_post.post_id=blog_post.post_id')
+                ->where(['blog_post.post_status'=>1])
+                ->groupBy(['class_id'])
+                ->orderBy(['count'=>SORT_DESC])
+                ->limit($limit)
+                ->asArray()
+                ->all();
+
+
+            return $class_arr;
+        }else{
+            //PostController中使用
+            $class_arr = Relclass2post::find()
+                ->select(['count(*) as count','blog_class_post.class_id','blog_class.class_name'])
+                ->leftJoin('blog_class','blog_class_post.class_id=blog_class.class_id')
+                ->leftJoin('blog_post','blog_class_post.post_id=blog_post.post_id')
+                ->where(['blog_post.post_status'=>1])
+                ->groupBy(['class_id'])
+                ->orderBy(['count'=>SORT_DESC])
+                ->asArray()
+                ->all();
+
+            return $class_arr;
+        }
+
+
+
     }
 }

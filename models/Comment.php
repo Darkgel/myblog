@@ -127,4 +127,16 @@ class Comment extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Post::className(), ['post_id' => 'comment_post_id']);
     }
+
+    public static function getCommentCount(){
+        return Comment::find()
+            ->count();
+    }
+
+    public static function getRecentComments(){
+        return Comment::find()
+            ->orderBy(['comment_date'=>SORT_DESC])
+            ->limit(5)
+            ->all();
+    }
 }

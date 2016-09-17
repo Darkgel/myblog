@@ -56,4 +56,6 @@ class Tag extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Reltag2post::className(), ['tag_id' => 'tag_id']);
     }
+
+
 }
