@@ -56,24 +56,29 @@ if( Yii::$app->getSession()->hasFlash('comment_success') ) {
                     下一篇 : &nbsp;
                     <?=Html::a(Html::encode($preAndnext[1]['post_title']),['post/view','id'=>$preAndnext[1]['post_id']]);?>
                 </p>
+            <?php elseif(!isset($preAndnext[0])):?>
+                <p id="backward">
+                    &nbsp;上一篇 :&nbsp;没有了
+                </p>
+                <p id="forward">
+                    下一篇 : &nbsp;没有了
+                </p>
+            <?php elseif(($preAndnext[0]['post_id']>$post->post_id)):?>
+                <p id="backward">
+                    &nbsp;上一篇 :&nbsp;没有了
+                </p>
+                <p id="forward">
+                    下一篇 : &nbsp;
+                    <?=Html::a(Html::encode($preAndnext[0]['post_title']),['post/view','id'=>$preAndnext[0]['post_id']]);?>
+                </p>
             <?php else:?>
-                <?php if(($preAndnext[0]['post_id']>$post->post_id)):?>
-                    <p id="backward">
-                        &nbsp;上一篇 :&nbsp;没有了
-                    </p>
-                    <p id="forward">
-                        下一篇 : &nbsp;
-                        <?=Html::a(Html::encode($preAndnext[0]['post_title']),['post/view','id'=>$preAndnext[0]['post_id']]);?>
-                    </p>
-                <?php else:?>
-                    <p id="backward">
-                        &nbsp;上一篇 :&nbsp;
-                        <?=Html::a(Html::encode($preAndnext[0]['post_title']),['post/view','id'=>$preAndnext[0]['post_id']]);?>
-                    </p>
-                    <p id="forward">
-                        下一篇 : &nbsp;没有了
-                    </p>
-                <?php endif?>
+                <p id="backward">
+                    &nbsp;上一篇 :&nbsp;
+                    <?=Html::a(Html::encode($preAndnext[0]['post_title']),['post/view','id'=>$preAndnext[0]['post_id']]);?>
+                </p>
+                <p id="forward">
+                    下一篇 : &nbsp;没有了
+                </p>
             <?php endif?>
 
         </div>
@@ -85,10 +90,7 @@ if( Yii::$app->getSession()->hasFlash('comment_success') ) {
                     '<span class="glyphicon glyphicon-pencil"></span>',
                     ['post/update','id'=>$post->post_id]
                 );?>&nbsp;
-                <?=Html::a(
-                    '<span class="glyphicon glyphicon-trash"></span>',
-                    ['post/delete','id'=>$post->post_id]
-                );?>
+                <a href="javascript:deletePost(<?=$post->post_id;?>)"><span class="glyphicon glyphicon-trash"></span></a>
                 <?php endif;?>
                 </span>
         </div>
