@@ -9,7 +9,7 @@ function getUrlParam(name) {
 function approve(){
     $.ajax({
         type:"GET",
-        url:"http://www.myblog.com/index.php?r=post/vote&id="+getUrlParam('id')+"&vote=1",
+        url:"http://www.darkgel.me/index.php?r=post/vote&id="+getUrlParam('id')+"&vote=1",
         success:function(data){
             if(data=='success'){
                 $("#approve_count").text(parseInt($("#approve_count").text())+1);
@@ -27,7 +27,7 @@ function approve(){
 function against(){
     $.ajax({
         type:"GET",
-        url:"http://www.myblog.com/index.php?r=post/vote&id="+getUrlParam('id')+"&vote=0",
+        url:"http://www.darkgel.me/index.php?r=post/vote&id="+getUrlParam('id')+"&vote=0",
         success:function(data){
             if(data=='success'){
                 $("#against_count").text(parseInt($("#against_count").text())+1);
@@ -96,7 +96,7 @@ $(".reply a").click(function(){
     var mes = this.id;
     var arr = mes.split('-');
     var reply_form = $("#reply-form").remove();
-    var href = "http://www.myblog.com/index.php?r=comment/reply&post_id="+arr[1]+"&comment_after="+arr[2]+"&comment_replyto_id="+arr[0]+"&comment_replyto_author="+arr[3];
+    var href = "http://www.darkgel.me/index.php?r=comment/reply&post_id="+arr[1]+"&comment_after="+arr[2]+"&comment_replyto_id="+arr[0]+"&comment_replyto_author="+arr[3];
     reply_form.find("form").attr("action",href);
     $(this).next().append(reply_form);
     return false;

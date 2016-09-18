@@ -37,14 +37,14 @@ $this->title = "新文章";
 
 <script>
     function asDraft(){
-        var href = "http://www.myblog.com/index.php?r=post/create&status=0";
+        var href = "http://www.darkgel.me/index.php?r=post/create&status=0";
         var form = $("#article-form");
         form.attr("action",href);
         form.submit();
     }
 
     function asPublished(){
-        var href = "http://www.myblog.com/index.php?r=post/create&status=1";
+        var href = "http://www.darkgel.me/index.php?r=post/create&status=1";
         var form = $("#article-form");
         form.attr("action",href);
         form.submit();

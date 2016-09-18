@@ -163,7 +163,7 @@ if( Yii::$app->getSession()->hasFlash('comment_success') ) {
 
 <div id="new-comments">
     <h3>&nbsp;发表评论</h3>
-    <form role="form" action="http://www.myblog.com/index.php?r=comment/create&post_id=<?=$post->post_id;?>" method="post" onsubmit="return validate_form()" class="comment-form">
+    <form role="form" action="http://www.darkgel.me/index.php?r=comment/create&post_id=<?=$post->post_id;?>" method="post" onsubmit="return validate_form()" class="comment-form">
         <input type="hidden" name="_csrf" value="<?=Yii::$app->request->getCsrfToken()?>" />
         <div class="form-group">
             <label for="comment-content">您的评论</label>
@@ -188,7 +188,7 @@ if( Yii::$app->getSession()->hasFlash('comment_success') ) {
 <div  style="display:none;">
 <ul id="reply-ul">
     <li id="reply-form">
-        <form role="form" action="http://www.myblog.com/index.php?r=comment/create&post_id=<?=$post->post_id;?>" method="post" onsubmit="return validate_form()" class="comment-form">
+        <form role="form" action="http://www.darkgel.me/index.php?r=comment/create&post_id=<?=$post->post_id;?>" method="post" onsubmit="return validate_form()" class="comment-form">
             <input type="hidden" name="_csrf" value="<?=Yii::$app->request->getCsrfToken()?>" />
             <div class="form-group">
                 <label for="comment-content">您的回复</label>

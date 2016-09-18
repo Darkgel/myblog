@@ -42,14 +42,14 @@ BloglayoutAsset::register($this);
         </div>
         <div id="navigation">
             <ul class="nav navtabs">
-                <li><a href="http://www.myblog.com/index.php">首页</a></li>
+                <li><a href="http://www.darkgel.me/index.php">首页</a></li>
                 <?php if(Yii::$app->user->isGuest):?>
-                <li><a href="http://www.myblog.com/index.php?r=site/login">管理</a></li>
+                <li><a href="http://www.darkgel.me/index.php?r=site/login">管理</a></li>
                 <li><a href="#">联系我</a></li>
                 <?php else:?>
-                <li><a href="http://www.myblog.com/index.php?r=post/create">写文章</a></li>
-                <li><a href="http://www.myblog.com/index.php?r=post/draft">我的草稿</a></li>
-                <li><a href="http://www.myblog.com/index.php?r=site/logout">退出登录</a></li>
+                <li><a href="http://www.darkgel.me/index.php?r=post/create">写文章</a></li>
+                <li><a href="http://www.darkgel.me/index.php?r=post/draft">我的草稿</a></li>
+                <li><a href="http://www.darkgel.me/index.php?r=site/logout">退出登录</a></li>
                 <?php endif;?>
             </ul>
         </div>
