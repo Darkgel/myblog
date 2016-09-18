@@ -7,6 +7,13 @@ $config = [
     'basePath' => dirname(__DIR__),
     'defaultRoute' => 'post',
     'bootstrap' => ['log'],
+    'modules' => [
+        'redactor' => 'yii\redactor\RedactorModule',
+        'imageAllowExtensions'=>['jpg','png','gif'],
+        'user' => [
+            // here is the config for user
+        ],
+    ],
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
@@ -18,6 +25,7 @@ $config = [
         'user' => [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
+
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',

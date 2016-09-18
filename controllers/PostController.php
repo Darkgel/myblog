@@ -54,7 +54,7 @@ class PostController extends Controller
         //$id = isset($post_id) ? $post_id : $_GET['id'];
         $query = Post::find();
         $post = $query
-            ->where(['post_id'=>$id,'post_status'=>1])
+            ->where(['post_id'=>$id])
             ->one();
 
         //get the pre and next post
@@ -95,9 +95,7 @@ class PostController extends Controller
     }
 
     protected function loadDataFromPost($post){
-        $post->post_title = $_POST['post_title'];
-        $post->post_summary = $_POST['post_summary'];
-        $post->post_content = $_POST['post_content'];
+        $post->load(Yii::$app->request->post());
         $post->post_status = $_GET['status'];
         $post->post_create_date = date('Y-m-d H:i:s');
         $post->post_modify_date = date('Y-m-d H:i:s');
@@ -108,10 +106,11 @@ class PostController extends Controller
     }
 
     public function actionCreate(){
+        $post = new Post();
+
         if(isset($_GET['status'])){
 //            echo $_GET['status'];
 //            exit();
-            $post = new Post();
             $this->loadDataFromPost($post);
 
             if($post->save()){
@@ -180,21 +179,19 @@ class PostController extends Controller
                 return $this->actionIndex();
             }
         }else{
-            return $this->render('create');
+            return $this->render('create',['post'=>$post]);
         }
 
 
     }
 
-
     protected function UpdateDataFromPost($post){
-        $post->post_title = $_POST['post_title'];
-        $post->post_summary = $_POST['post_summary'];
-        $post->post_content = $_POST['post_content'];
+        $post->load(Yii::$app->request->post());
         $post->post_status = $_GET['status'];
         $post->post_modify_date = date('Y-m-d H:i:s');
 
     }
+
     public function actionUpdate(){
         $post = Post::findOne(['post_id'=>$_GET['id']]);
         if(isset($_GET['status'])){
@@ -313,6 +310,28 @@ class PostController extends Controller
                 'pagination'=>$pagination,
             ]);
         }
+    }
+
+    public function actionDraft(){
+        $query = Post::find();
+        $pagination = new Pagination([
+            'defaultPageSize' => 9,
+            'totalCount' => $query->count(),
+        ]);
+
+        $posts = $query->select(['post_id','post_title','post_summary','post_modify_date','post_read_count','post_comment_count'])
+            ->where(['post_status'=>0])
+            ->orderBy(['post_modify_date'=>SORT_DESC])
+            ->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->all();
+
+        return $this->render('draft',[
+            'posts'=>$posts,
+            'pagination'=>$pagination,
+        ]);
+
+
     }
 }
 

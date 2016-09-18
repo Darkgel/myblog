@@ -2,14 +2,23 @@
 use yii\helpers\Html;
 use app\assets\AppAsset;
 use app\assets\PostviewAsset;
+use yii\bootstrap\Alert;
 
 
 $this->title = $post->post_title;
 AppAsset::register($this);
 PostviewAsset::register($this);
 ?>
-
-
+<?php
+if( Yii::$app->getSession()->hasFlash('comment_success') ) {
+    echo Alert::widget([
+        'options' => [
+            'class' => 'alert-success', //这里是提示框的class
+        ],
+        'body' => Yii::$app->getSession()->getFlash('comment_success'), //消息体
+    ]);
+}
+?>
 <div id="article">
     <h1><?=$post->post_title;?></h1>
     <div id="article-body">
@@ -70,7 +79,8 @@ PostviewAsset::register($this);
         </div>
         <br /><br />
         <div id="other-details">
-            <span>posted @ <?=Html::encode($post->post_modify_date);?> 阅读(<?=Html::encode($post->post_read_count)?>) 评论(<?=Html::encode($post->post_comment_count)?>)&nbsp;
+            <span>posted @ <?=Html::encode($post->post_modify_date);?> 阅读(<?=Html::encode($post->post_read_count)?>) 评论(<?=Html::encode($post->getCommentCount($post->post_id))?>)&nbsp;
+                <?php if(!Yii::$app->user->isGuest):?>
                 <?=Html::a(
                     '<span class="glyphicon glyphicon-pencil"></span>',
                     ['post/update','id'=>$post->post_id]
@@ -79,6 +89,7 @@ PostviewAsset::register($this);
                     '<span class="glyphicon glyphicon-trash"></span>',
                     ['post/delete','id'=>$post->post_id]
                 );?>
+                <?php endif;?>
                 </span>
         </div>
     </div>
@@ -102,7 +113,7 @@ PostviewAsset::register($this);
                     <?php endif;?>
                     <span><?=Html::encode($comment_chain[0]['comment_date'])?></span>
                 </h5>
-                <div><?=Html::encode($comment_chain[0]['comment_content'])?></div>
+                <div><?=Html::encode($comment_chain[0]['comment_content'])?><a id="<?=Html::encode($comment_chain[0]['comment_id'])?>" hidden="hidden"></a></div>
                 <div class="reply">
                     <a id="<?=Html::encode($comment_chain[0]['comment_id'].'-'.$post->post_id.'-'.$comment_chain[0]['comment_after'].'-'.$comment_chain[0]['comment_author_name']);?>" href="#">回复</a>
                     <ul id="reply-<?=Html::encode($comment_chain[0]['comment_id'])?>">
@@ -129,7 +140,7 @@ PostviewAsset::register($this);
                                     回复&nbsp;&nbsp;<?=Html::encode($comment_chain[$i]['comment_replyto_author'])?>&nbsp;
                                     <span><?=Html::encode($comment_chain[$i]['comment_date'])?></span>
                                 </h5>
-                                <div><?=Html::encode($comment_chain[$i]['comment_content'])?></div>
+                                <div><?=Html::encode($comment_chain[$i]['comment_content'])?><a id="<?=Html::encode($comment_chain[$i]['comment_id'])?>" hidden="hidden"></a></div>
                                 <div class="reply">
                                     <a id="<?=Html::encode($comment_chain[$i]['comment_id'].'-'.$post->post_id.'-'.$comment_chain[$i]['comment_after'].'-'.$comment_chain[$i]['comment_author_name']);?>" href="#">回复</a>
                                     <ul id="reply-<?=Html::encode($comment_chain[$i]['comment_id'])?>">
@@ -150,7 +161,7 @@ PostviewAsset::register($this);
 
 <div id="new-comments">
     <h3>&nbsp;发表评论</h3>
-    <form role="form" action="http://www.myblog.com/index.php?r=comment/create&post_id=<?=$post->post_id;?>" method="post">
+    <form role="form" action="http://www.myblog.com/index.php?r=comment/create&post_id=<?=$post->post_id;?>" method="post" onsubmit="return validate_form()" class="comment-form">
         <input type="hidden" name="_csrf" value="<?=Yii::$app->request->getCsrfToken()?>" />
         <div class="form-group">
             <label for="comment-content">您的评论</label>
@@ -175,7 +186,7 @@ PostviewAsset::register($this);
 <div  style="display:none;">
 <ul id="reply-ul">
     <li id="reply-form">
-        <form role="form" action="http://www.myblog.com/index.php?r=comment/create&post_id=<?=$post->post_id;?>" method="post">
+        <form role="form" action="http://www.myblog.com/index.php?r=comment/create&post_id=<?=$post->post_id;?>" method="post" onsubmit="return validate_form()" class="comment-form">
             <input type="hidden" name="_csrf" value="<?=Yii::$app->request->getCsrfToken()?>" />
             <div class="form-group">
                 <label for="comment-content">您的回复</label>

@@ -7,7 +7,7 @@ use yii\helpers\Html;
 use app\assets\AppAsset;
 use app\assets\BloglayoutAsset;
 use app\widgets\leftSidebarWidget;
-
+use yii\widgets\ActiveForm;
 
 AppAsset::register($this);
 BloglayoutAsset::register($this);
@@ -25,7 +25,7 @@ BloglayoutAsset::register($this);
 </head>
 <body>
 <?php $this->beginBody() ?>
-<div class="container-fluid">
+<div class="container-fluid" >
     <div class="col-md-2" id="left">
         <div id="avatar">
             <?=Html::img("@web/img/avatar.png");?>
@@ -35,27 +35,31 @@ BloglayoutAsset::register($this);
             <p id="moto">Yes,this is my life!</p>
         </div>
         <div id="search_form">
-            <form role="form" action="#">
-                <input type="text" class="form-control" placeholder="搜索">
+            <?php $form = ActiveForm::begin(['action'=>['site/search'],'method'=>'get']);?>
+                <input type="text" class="form-control" placeholder="搜索" name="search">
                 <button type="submit" class="btn btn-mini"><span class="glyphicon glyphicon-search"></span></button>
-            </form>
+            <?php ActiveForm::end()?>
         </div>
         <div id="navigation">
             <ul class="nav navtabs">
                 <li><a href="http://www.myblog.com/index.php">首页</a></li>
-                <li><a href="#">管理</a></li>
+                <?php if(Yii::$app->user->isGuest):?>
+                <li><a href="http://www.myblog.com/index.php?r=site/login">管理</a></li>
                 <li><a href="#">联系我</a></li>
+                <?php else:?>
                 <li><a href="http://www.myblog.com/index.php?r=post/create">写文章</a></li>
                 <li><a href="http://www.myblog.com/index.php?r=post/draft">我的草稿</a></li>
+                <li><a href="http://www.myblog.com/index.php?r=site/logout">退出登录</a></li>
+                <?php endif;?>
             </ul>
         </div>
     </div>
     <div class="col-md-10 col-md-offset-2" id="right-top">
-        <div class="row" id="other-world">
-            <div class="col-md-4"><a href="#">·电影·</a></div>
-            <div class="col-md-4"><a href="#">·书·</a></div>
-            <div class="col-md-4"><a href="#">·音乐·</a></div>
-        </div>
+<!--        <div class="row" id="other-world">-->
+<!--            <div class="col-md-4"><a href="#">·电影·</a></div>-->
+<!--            <div class="col-md-4"><a href="#">·书·</a></div>-->
+<!--            <div class="col-md-4"><a href="#">·音乐·</a></div>-->
+<!--        </div>-->
         <div class="row">
             <?=Html::img("@web/img/top.png");?>
         </div>

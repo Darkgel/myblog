@@ -38,6 +38,7 @@ class CommentController extends Controller{
         if($comment->save()){
             $comment->comment_after = $comment->comment_id;
             if($comment->save()){
+                Yii::$app->getSession()->setFlash('comment_success', '评论提交成功!');
                 return $this->redirect(['post/view', 'id' => $post_id]);
             }
         }
@@ -59,6 +60,7 @@ class CommentController extends Controller{
 //        exit;
 
         if($comment->save()){
+            Yii::$app->getSession()->setFlash('comment_success', '评论提交成功!');
             return $this->redirect(['post/view', 'id' => $post_id]);
         }
     }

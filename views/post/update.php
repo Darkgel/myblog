@@ -1,23 +1,24 @@
 <?php
 use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 
-$this->title = "新文章";
+$this->title = "修改文章";
 ?>
 <div id="new-article">
-    <form id="article-form" role="form" action="http://www.myblog.com/index.php?r=post/update&id=<?=$post->post_id;?>" method="post">
-        <input type="hidden" name="_csrf" value="<?=Yii::$app->request->getCsrfToken();?>">
-        <div class="form-group">
-            <label for="title">标题</label>
-            <input name="post_title" class="form-control" id="title" value="<?=Html::encode($post->post_title);?>">
-        </div>
-        <div class="form-group">
-            <label for="summary">摘要</label>
-            <textarea name="post_summary" class="form-control" id="summary" rows="8" ><?=Html::encode($post->post_summary);?></textarea>
-        </div>
-        <div class="form-group">
-            <label for="content">文章内容</label>
-            <textarea name="post_content" class="form-control" id="content" rows="23" ><?=Html::encode($post->post_content);?></textarea>
-        </div>
+    <?php $form = ActiveForm::begin(['id'=>'article-form']);?>
+    <?= $form->field($post, 'post_title')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($post, 'post_summary')->textarea(['row'=>8]) ?>
+    <?= $form->field($post, 'post_content')->widget(\yii\redactor\widgets\Redactor::className(),
+        [
+            'clientOptions' => [
+                'imageManagerJson' => ['/redactor/upload/image-json'],
+                'imageUpload' => ['/redactor/upload/image'],
+                'fileUpload' => ['/redactor/upload/file'],
+                'lang' => 'zh_cn',
+                'plugins' => ['clips', 'fontcolor','imagemanager','fontfamily','fontsize','fullscreen']
+            ]
+        ]
+    ) ?>
         <div>
             <p id="article-tags">
                 <strong>标签</strong> :
@@ -32,11 +33,9 @@ $this->title = "新文章";
                 <?php endforeach;?>
             </p>
         </div>
-        <button type="submit" class="btn btn-info" onclick="asDraftUpdate()">保存为草稿</button>
-        <button type="submit" class="btn btn-success" onclick="asPublishedUpdate()">发表</button>
-
-        <label>
-    </form>
+    <?=Html::submitButton('保存为草稿',['class'=>'btn btn-info','onclick'=>'asDraftUpdate()'])?>
+    <?=Html::submitButton('发表', ['class'=>'btn btn-success','onclick' =>'asPublishedUpdate()'])?>
+    <?php ActiveForm::end();?>
 </div>
 
 

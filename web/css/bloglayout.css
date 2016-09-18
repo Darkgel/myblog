@@ -1,3 +1,8 @@
+.container-fluid{
+    margin-left:0;
+    padding-left:0;
+}
+
 /***************left begin********************/
 #left{
     height: 2900px;
@@ -48,7 +53,7 @@
 #right-top{
     background-color: #2D2D2D;
     margin-bottom:30px;
-    height:150px;
+    height:110px;/*加上三个链接后为150px*/
 }
 
 #right-top img{
@@ -126,3 +131,5 @@
     padding:0;
 }
 /***************scroll_to_top button end********************/
+
+

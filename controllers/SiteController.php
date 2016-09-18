@@ -8,6 +8,8 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\Post;
+use yii\data\Pagination;
 
 class SiteController extends Controller
 {
@@ -34,7 +36,7 @@ class SiteController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'logout' => ['post'],
+                    //'logout' => ['post'],
                 ],
             ],
         ];
@@ -125,5 +127,28 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    public function actionSearch(){
+        $key = $_GET['search'];
+        $query = Post::find();
+        $pagination = new Pagination([
+            'defaultPageSize' => 9,
+            'totalCount' => $query->count(),
+        ]);
+        $posts = $query->select(['post_id','post_title','post_summary','post_modify_date','post_read_count','post_comment_count'])
+            ->where(['like','post_title',$key])
+            ->orWhere(['like','post_summary',$key])
+            ->orWhere(['like','post_content',$key])
+            ->orderBy(['post_modify_date'=>SORT_DESC])
+            ->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->all();
+
+       return $this->render('search',[
+            'key'=>$key,
+            'posts'=>$posts,
+            'pagination'=>$pagination,
+        ]);
     }
 }

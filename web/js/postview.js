@@ -107,3 +107,19 @@ function cancel_reply(){
     $("#reply-ul").append(reply_form);
     return false;
 }
+
+function validate_form(){
+    var form = $('.comment-form');
+    var content = form.find('#comment-content').val();
+    var author = form.find('#comment-author').val();
+    var email = form.find('#email').val();
+    if(content==null||content==""){
+        alert("评论不能为空!");
+        return false;
+    }else if(author==null||author==""){
+        alert('称呼不能为空!');
+        return false;
+    }
+    return true;
+
+}

@@ -112,4 +112,10 @@ class Post extends \yii\db\ActiveRecord
             ->limit(5)
             ->all();
     }
+
+    public static function getCommentCount($post_id){
+        return Comment::find()
+            ->where(['comment_post_id'=>$post_id])
+            ->count();
+    }
 }
